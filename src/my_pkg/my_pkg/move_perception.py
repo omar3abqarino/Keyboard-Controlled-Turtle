@@ -18,10 +18,15 @@ move_bindings = {
 
 class Move_PerceptionNode(Node):
     def __init__(self, use_stamped_vel: bool, dominant_color_topic: str):
+
+        
         super().__init__("move_perception_node")
 
         self.use_stamped_vel = use_stamped_vel
         self.declare_parameter('use_stamped', use_stamped_vel)
+
+        self.dominant_color_topic = "/" + dominant_color_topic
+        
         self.latest_dominant_ch = "X"
 
         self.get_logger().info(
@@ -43,7 +48,7 @@ class Move_PerceptionNode(Node):
             self.keys_publisher = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
 
         self.color_subscriber = self.create_subscription(Color, "/turtle1/color_sensor", self.color_subscribe, 10)
-        self.color_publisher = self.create_publisher(String, dominant_color_topic, 10)
+        self.color_publisher = self.create_publisher(String, self.dominant_color_topic, 10)
         
     
 
@@ -112,7 +117,7 @@ class Move_PerceptionNode(Node):
         stop_listening()
         super().destroy_node()
 
-def is_valid_ros2_topic(topic_name: str) -> bool:
+def is_valid_ros2_topic(topic_name: str):
     try:
         # This will raise an exception if the name is invalid
         validate_topic_name(topic_name)
@@ -132,17 +137,20 @@ def main():
             use_stamped_vel = (int(use_stamped_vel) == 1)
             break
         else:
+            print("Invalid Number!!")
             continue
     while True:
-        dominant_color_topic = input("Choose The Dominant Color Topic Name: ")
+        dominant_color_topic = input("Choose The Dominant Color Topic Name (For Default, Press Enter): ")
+        if not dominant_color_topic:
+            dominant_color_topic = "dominant_name"
         if is_valid_ros2_topic(dominant_color_topic):
             break
         else:
             continue
-    rclpy.init()
-    #add use_stamped_vel
-    node  = Move_PerceptionNode(use_stamped_vel, dominant_color_topic)
 
+    rclpy.init()
+    node  = Move_PerceptionNode(use_stamped_vel, dominant_color_topic)
+    
     try:
     
         spin_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)

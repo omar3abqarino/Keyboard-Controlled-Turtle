@@ -1,14 +1,15 @@
 import rclpy
 import threading
-from sshkeyboard import listen_keyboard, stop_listening, listen_keyboard_manual
+from sshkeyboard import listen_keyboard, stop_listening
 from std_msgs.msg import String
-import sys
 from rclpy.node import Node
 from rclpy.executors import ExternalShutdownException
 from geometry_msgs.msg import Twist, TwistStamped
 from turtlesim.msg import Color
+from rclpy.validate_topic_name import validate_topic_name
+from rclpy.exceptions import InvalidTopicNameException
 
-MOVE_BINDINGS = {
+move_bindings = {
     'w': (2.0, 0.0),    # Forward
     's': (-2.0, 0.0),   # Backward
     'a': (0.0, 2.0),    # Turn Left
@@ -16,10 +17,11 @@ MOVE_BINDINGS = {
 }
 
 class Move_PerceptionNode(Node):
-    def __init__(self):
+    def __init__(self, use_stamped_vel: bool, dominant_color_topic: str):
         super().__init__("move_perception_node")
 
-        self.use_stamped_vel = False
+        self.use_stamped_vel = use_stamped_vel
+        self.declare_parameter('use_stamped', use_stamped_vel)
         self.latest_dominant_ch = "X"
 
         self.get_logger().info(
@@ -33,20 +35,16 @@ class Move_PerceptionNode(Node):
         )
 
         if self.use_stamped_vel:
-        
-            #self.keys_subscriber = self.create_subscription(TwistStamped, "/cmd_vel", self.stamped_keys_publish, 10)
             
-            self.keys_publisher = self.create_publisher(TwistStamped, "/cmd_vel", 10)
+            self.keys_publisher = self.create_publisher(TwistStamped, "/turtle1/cmd_vel_stamped", 10)
 
         else:
-            #self.keys_subscriber = self.create_subscription(Twist, "/cmd_vel", self.keys_publish, 10)
 
             self.keys_publisher = self.create_publisher(Twist, "/turtle1/cmd_vel", 10)
 
         self.color_subscriber = self.create_subscription(Color, "/turtle1/color_sensor", self.color_subscribe, 10)
-        self.color_publisher = self.create_publisher(String, "/dominant_color", 10)
+        self.color_publisher = self.create_publisher(String, dominant_color_topic, 10)
         
-        #self.keys_publish(listen_keyboard_manual().get_next_key())
     
 
     def color_subscribe(self, msg):
@@ -70,17 +68,27 @@ class Move_PerceptionNode(Node):
         if not rclpy.ok():
             return
         
-        if key in MOVE_BINDINGS:
-            x_move = MOVE_BINDINGS[key][0]
-            angular_move = MOVE_BINDINGS[key][1]
-            msg = Twist()
-
-            msg.linear.x = x_move
-            msg.angular.z = angular_move
+        if key in move_bindings:
+            x_move = move_bindings[key][0]
+            angular_move = move_bindings[key][1]
+            if self.use_stamped_vel:
+                msg = TwistStamped()
+                msg.header.stamp = self.get_clock().now().to_msg()
+                msg.header.frame_id = "turtle1"
+                msg.twist.linear.x = x_move
+                msg.twist.angular.z = angular_move
+            else:
+                msg = Twist()
+                msg.linear.x = x_move
+                msg.angular.z = angular_move
 
             self.keys_publisher.publish(msg)
-            self.get_logger().info(f'Standard Twist: Linear X = {msg.linear.x}')
-            self.get_logger().info(f'Standard Twist: Angular Z = {msg.angular.z}')
+            if self.use_stamped_vel:
+                self.get_logger().info(f'Stamped Twist: Linear X = {msg.twist.linear.x}')
+                self.get_logger().info(f'Stamped Twist: Angular Z = {msg.twist.angular.z}')
+            else:
+                self.get_logger().info(f'Standard Twist: Linear X = {msg.linear.x}')
+                self.get_logger().info(f'Standard Twist: Angular Z = {msg.angular.z}')
 
             self.get_logger().info(f"The Dominant Color is {self.latest_dominant_ch}")
             
@@ -92,28 +100,27 @@ class Move_PerceptionNode(Node):
         elif key == "q":
             self.get_logger().info("Exit key pressed. Shutting down...")
             stop_listening()
-            stop_msg = Twist()
+            if self.use_stamped_vel:
+                stop_msg = TwistStamped()
+            else:
+                stop_msg = Twist()
             self.keys_publisher.publish(stop_msg)
             rclpy.shutdown()
 
 
-
-    def stamped_keys_publish(self, msg):
-        actual_msg = TwistStamped()
-
-        actual_msg.twist.linear.x = msg.twist.linear.x
-        actual_msg.twist.linear.y = msg.twist.linear.y    
-
-
-        actual_msg.twist.angular.x = msg.twist.angular.x
-        actual_msg.twist.angular.y = msg.twist.angular.y
-
-        self.keys_publisher.publish(actual_msg)
-        self.get_logger().info(f'Forwarded standard Twist: Linear X={actual_msg.twist.linear.x}')
-
     def destroy_node(self):
         stop_listening()
         super().destroy_node()
+
+def is_valid_ros2_topic(topic_name: str) -> bool:
+    try:
+        # This will raise an exception if the name is invalid
+        validate_topic_name(topic_name)
+        return True
+    except InvalidTopicNameException as e:
+        print(f"Invalid topic name: {e}")
+        return False
+
 
 
 def main():
@@ -122,13 +129,19 @@ def main():
     while True:
         use_stamped_vel = input("Choose: ").strip()
         if use_stamped_vel.isdecimal() and use_stamped_vel in ["1", "2"]:
-            use_stamped_vel = int(use_stamped_vel)
+            use_stamped_vel = (int(use_stamped_vel) == 1)
+            break
+        else:
+            continue
+    while True:
+        dominant_color_topic = input("Choose The Dominant Color Topic Name: ")
+        if is_valid_ros2_topic(dominant_color_topic):
             break
         else:
             continue
     rclpy.init()
     #add use_stamped_vel
-    node  = Move_PerceptionNode()
+    node  = Move_PerceptionNode(use_stamped_vel, dominant_color_topic)
 
     try:
     

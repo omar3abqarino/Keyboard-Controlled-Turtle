@@ -1,0 +1,2 @@
+[console_scripts]
+move_perception_node = my_pkg.move_perception:main

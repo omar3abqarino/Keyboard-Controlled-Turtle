@@ -1,12 +1,16 @@
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg/move_perception.py
+/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg/hi.py
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg/__init__.py
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg/__pycache__/move_perception.cpython-312.pyc
+/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg/__pycache__/hi.cpython-312.pyc
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg/__pycache__/__init__.cpython-312.pyc
 /home/a/task7_individual/install/my_pkg/share/ament_index/resource_index/packages/my_pkg
 /home/a/task7_individual/install/my_pkg/share/my_pkg/package.xml
+/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info/entry_points.txt
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info/top_level.txt
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info/PKG-INFO
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info/dependency_links.txt
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info/zip-safe
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info/requires.txt
 /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info/SOURCES.txt
+/home/a/task7_individual/install/my_pkg/lib/my_pkg/move_perception_node

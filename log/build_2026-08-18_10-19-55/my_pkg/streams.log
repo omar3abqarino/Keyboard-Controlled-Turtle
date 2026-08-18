@@ -1,0 +1,17 @@
+[2.133s] Invoking command in '/home/a/task7_individual/build/my_pkg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/a/task7_individual/build/my_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/a/task7_individual/build/my_pkg/build --no-deps symlink_data
+[2.735s] running develop
+[3.113s] running egg_info
+[3.149s] writing my_pkg.egg-info/PKG-INFO
+[3.150s] writing dependency_links to my_pkg.egg-info/dependency_links.txt
+[3.150s] writing entry points to my_pkg.egg-info/entry_points.txt
+[3.150s] writing requirements to my_pkg.egg-info/requires.txt
+[3.150s] writing top-level names to my_pkg.egg-info/top_level.txt
+[3.222s] reading manifest file 'my_pkg.egg-info/SOURCES.txt'
+[3.224s] writing manifest file 'my_pkg.egg-info/SOURCES.txt'
+[3.261s] running build_ext
+[3.261s] Creating /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my-pkg.egg-link (link to .)
+[3.262s] Installing move_perception_node script to /home/a/task7_individual/install/my_pkg/lib/my_pkg
+[3.263s] 
+[3.263s] Installed /home/a/task7_individual/build/my_pkg
+[3.263s] running symlink_data
+[3.330s] Invoked command in '/home/a/task7_individual/build/my_pkg' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/a/task7_individual/build/my_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/a/task7_individual/build/my_pkg/build --no-deps symlink_data

@@ -1,19 +1,27 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler, EmitEvent
+from launch.events import Shutdown
+from launch.event_handlers import OnProcessExit
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 def generate_launch_description():
+
+    use_stamped_config = LaunchConfiguration("use_stamped")
+    use_stamped_arg = DeclareLaunchArgument("use_stamped", default_value="false")
+
+    
     move_perception_node = Node(
         package = "my_pkg",
         executable = "move_perception_node",
         name = "move_perception",
         output = "screen",
-        emulate_tty = True
+        emulate_tty = True,
+        prefix = ["xterm -e"]
     )
 
-    use_stamped_config = LaunchConfiguration("use_stamped")
+    
 
     unstamper_node = Node(
         package = "twist_stamper",
@@ -37,9 +45,19 @@ def generate_launch_description():
         name = "sim"
     )
 
+    shutdown_handler = RegisterEventHandler(
+        OnProcessExit(
+            target_action=move_perception_node,
+            on_exit=[
+                EmitEvent(event=Shutdown())
+            ]
+        )
+    )
+
     return LaunchDescription([
+        use_stamped_arg,
         move_perception_node,
         turtle_sim,
-        use_stamped_arg,
-        unstamper_node
-    ])
+        unstamper_node,
+        shutdown_handler
+    ])  

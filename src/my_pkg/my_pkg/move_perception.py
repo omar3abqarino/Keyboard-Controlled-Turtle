@@ -1,5 +1,4 @@
-import rclpy
-import threading
+import rclpy, threading
 from sshkeyboard import listen_keyboard, stop_listening
 from std_msgs.msg import String
 from rclpy.node import Node
@@ -23,7 +22,9 @@ class Move_PerceptionNode(Node):
         super().__init__("move_perception_node")
 
         self.use_stamped_vel = use_stamped_vel
-        self.declare_parameter('use_stamped', use_stamped_vel)
+        self.declare_parameter("use_stamped", False)
+        self.declare_parameter("dominant_color_topic", "/dominant_color")
+        
 
         self.dominant_color_topic = "/" + dominant_color_topic
         

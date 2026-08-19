@@ -1,5 +1,14 @@
+import subprocess
+import sys
+
+try:
+    from sshkeyboard import listen_keyboard, stop_listening
+except ImportError:
+    print("[WARNING] sshkeyboard not found. Installing automatically...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "sshkeyboard", "--break-system-packages"])
+    from sshkeyboard import listen_keyboard, stop_listening
+
 import rclpy, threading
-from sshkeyboard import listen_keyboard, stop_listening
 from std_msgs.msg import String
 from rclpy.node import Node
 from rclpy.executors import ExternalShutdownException
@@ -109,6 +118,8 @@ class Move_PerceptionNode(Node):
             stop_listening()
             if self.use_stamped_vel:
                 stop_msg = TwistStamped()
+                stop_msg.header.stamp = self.get_clock().now().to_msg()
+                stop_msg.header.frame_id = "turtle1"
             else:
                 stop_msg = Twist()
             self.keys_publisher.publish(stop_msg)
@@ -131,16 +142,6 @@ def is_valid_ros2_topic(topic_name: str):
 
 
 def main():
-    # print("1. Stamped Twist")
-    # print("2. Normal Twist")
-    # while True:
-    #     use_stamped_vel = input("Choose: ").strip()
-    #     if use_stamped_vel.isdecimal() and use_stamped_vel in ["1", "2"]:
-    #         use_stamped_vel = (int(use_stamped_vel) == 1)
-    #         break
-    #     else:
-    #         print("Invalid Number!!")
-    #         continue
     while True:
         dominant_color_topic = input("Choose The Dominant Color Topic Name (For Default, Press Enter): ")
         if not dominant_color_topic:

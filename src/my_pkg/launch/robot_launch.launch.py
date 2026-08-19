@@ -6,7 +6,7 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 def launch_setup(context, *args, **kwargs):
-    # Retrieve and evaluate launch argument at runtime
+    
     use_stamped_str = LaunchConfiguration("use_stamped").perform(context).strip().lower()
     use_stamped = use_stamped_str in ["true", "1"]
 
@@ -19,7 +19,11 @@ def launch_setup(context, *args, **kwargs):
         name="move_perception",
         output="screen",
         emulate_tty=True,
-        prefix=["xterm -e"]
+        prefix=["xterm -e"],
+        parameters=[{
+            'use_stamped': use_stamped,
+            'dominant_color_topic': 'dominant_color'
+        }]
     )
     nodes.append(move_perception_node)
 

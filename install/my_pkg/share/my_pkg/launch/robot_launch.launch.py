@@ -19,7 +19,11 @@ def launch_setup(context, *args, **kwargs):
         name="move_perception",
         output="screen",
         emulate_tty=True,
-        prefix=["xterm -e"]
+        prefix=["xterm -e"],
+        parameters=[{
+            'use_stamped': use_stamped,
+            'dominant_color_topic': 'dominant_color'
+        }]
     )
     nodes.append(move_perception_node)
 

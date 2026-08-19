@@ -22,6 +22,7 @@ setup(
     extras_require={
         'test': [
             'pytest',
+            'sshkeyboard'
         ],
     },
     entry_points={

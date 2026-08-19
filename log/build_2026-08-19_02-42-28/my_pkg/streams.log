@@ -1,0 +1,20 @@
+[0.826s] Invoking command in '/home/a/task7_individual/build/my_pkg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/a/task7_individual/build/my_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/a/task7_individual/build/my_pkg/build --no-deps symlink_data --force
+[1.054s] running develop
+[1.194s] running egg_info
+[1.208s] writing my_pkg.egg-info/PKG-INFO
+[1.208s] writing dependency_links to my_pkg.egg-info/dependency_links.txt
+[1.208s] writing entry points to my_pkg.egg-info/entry_points.txt
+[1.208s] writing requirements to my_pkg.egg-info/requires.txt
+[1.208s] writing top-level names to my_pkg.egg-info/top_level.txt
+[1.237s] reading manifest file 'my_pkg.egg-info/SOURCES.txt'
+[1.237s] writing manifest file 'my_pkg.egg-info/SOURCES.txt'
+[1.253s] running build_ext
+[1.253s] Creating /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my-pkg.egg-link (link to .)
+[1.253s] Installing move_perception_node script to /home/a/task7_individual/install/my_pkg/lib/my_pkg
+[1.253s] 
+[1.254s] Installed /home/a/task7_individual/build/my_pkg
+[1.254s] running symlink_data
+[1.254s] symbolically linking /home/a/task7_individual/build/my_pkg/resource/my_pkg -> /home/a/task7_individual/install/my_pkg/share/ament_index/resource_index/packages
+[1.254s] symbolically linking /home/a/task7_individual/build/my_pkg/package.xml -> /home/a/task7_individual/install/my_pkg/share/my_pkg
+[1.254s] symbolically linking /home/a/task7_individual/build/my_pkg/launch/robot_launch.launch.py -> /home/a/task7_individual/install/my_pkg/share/my_pkg/launch
+[1.283s] Invoked command in '/home/a/task7_individual/build/my_pkg' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/a/task7_individual/build/my_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/a/task7_individual/build/my_pkg/build --no-deps symlink_data --force

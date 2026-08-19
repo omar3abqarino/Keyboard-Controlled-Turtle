@@ -1,0 +1,22 @@
+[0.579s] Invoking command in '/home/a/task7_individual/src/my_pkg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/a/task7_individual/build/my_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/my_pkg build --build-base /home/a/task7_individual/build/my_pkg/build install --record /home/a/task7_individual/build/my_pkg/install.log --install-scripts $base/lib/my_pkg --single-version-externally-managed install_data
+[0.767s] running egg_info
+[0.781s] writing ../../build/my_pkg/my_pkg.egg-info/PKG-INFO
+[0.781s] writing dependency_links to ../../build/my_pkg/my_pkg.egg-info/dependency_links.txt
+[0.781s] writing entry points to ../../build/my_pkg/my_pkg.egg-info/entry_points.txt
+[0.781s] writing requirements to ../../build/my_pkg/my_pkg.egg-info/requires.txt
+[0.781s] writing top-level names to ../../build/my_pkg/my_pkg.egg-info/top_level.txt
+[0.810s] reading manifest file '../../build/my_pkg/my_pkg.egg-info/SOURCES.txt'
+[0.810s] writing manifest file '../../build/my_pkg/my_pkg.egg-info/SOURCES.txt'
+[0.810s] running build
+[0.810s] running build_py
+[0.811s] running install
+[0.815s] running install_lib
+[0.831s] running install_data
+[0.831s] copying launch/robot_launch.launch.py -> /home/a/task7_individual/install/my_pkg/share/my_pkg/launch
+[0.831s] running install_egg_info
+[0.847s] removing '/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info' (and everything under it)
+[0.847s] Copying ../../build/my_pkg/my_pkg.egg-info to /home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages/my_pkg-0.0.0-py3.12.egg-info
+[0.847s] running install_scripts
+[0.940s] Installing move_perception_node script to /home/a/task7_individual/install/my_pkg/lib/my_pkg
+[0.940s] writing list of installed files to '/home/a/task7_individual/build/my_pkg/install.log'
+[0.963s] Invoked command in '/home/a/task7_individual/src/my_pkg' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/a/task7_individual/build/my_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/a/task7_individual/install/my_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/my_pkg build --build-base /home/a/task7_individual/build/my_pkg/build install --record /home/a/task7_individual/build/my_pkg/install.log --install-scripts $base/lib/my_pkg --single-version-externally-managed install_data

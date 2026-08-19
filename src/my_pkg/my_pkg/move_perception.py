@@ -16,13 +16,14 @@ move_bindings = {
 }
 
 class Move_PerceptionNode(Node):
-    def __init__(self, use_stamped_vel: bool, dominant_color_topic: str):
+    def __init__(self, dominant_color_topic: str):
 
         
         super().__init__("move_perception_node")
 
-        self.use_stamped_vel = use_stamped_vel
+        # self.use_stamped_vel = use_stamped_vel
         self.declare_parameter("use_stamped", False)
+        self.use_stamped_vel = self.get_parameter("use_stamped").get_parameter_value().bool_value
         self.declare_parameter("dominant_color_topic", "/dominant_color")
         
 
@@ -130,16 +131,16 @@ def is_valid_ros2_topic(topic_name: str):
 
 
 def main():
-    print("1. Stamped Twist")
-    print("2. Normal Twist")
-    while True:
-        use_stamped_vel = input("Choose: ").strip()
-        if use_stamped_vel.isdecimal() and use_stamped_vel in ["1", "2"]:
-            use_stamped_vel = (int(use_stamped_vel) == 1)
-            break
-        else:
-            print("Invalid Number!!")
-            continue
+    # print("1. Stamped Twist")
+    # print("2. Normal Twist")
+    # while True:
+    #     use_stamped_vel = input("Choose: ").strip()
+    #     if use_stamped_vel.isdecimal() and use_stamped_vel in ["1", "2"]:
+    #         use_stamped_vel = (int(use_stamped_vel) == 1)
+    #         break
+    #     else:
+    #         print("Invalid Number!!")
+    #         continue
     while True:
         dominant_color_topic = input("Choose The Dominant Color Topic Name (For Default, Press Enter): ")
         if not dominant_color_topic:
@@ -150,7 +151,7 @@ def main():
             continue
 
     rclpy.init()
-    node  = Move_PerceptionNode(use_stamped_vel, dominant_color_topic)
+    node  = Move_PerceptionNode(dominant_color_topic)
     
     try:
     
